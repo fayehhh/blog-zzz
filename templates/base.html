@@ -1,0 +1,140 @@
+{% load staticfiles %}
+{% load blog_tags %}
+<!DOCTYPE html>
+<head>
+    <title>Black &amp; White</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pace.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/highlights/borland.css' %}">
+    <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/pace.min.js' %}"></script>
+    <script src="{% static 'js/modernizr.custom.js' %}"></script>
+    <script src="{% static 'js/script.js' %} "></script>
+
+</head>
+<body>
+<script src="{% static 'js/canvas-nest.js' %}"></script>
+<div class="container">
+    <header id="site-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-5 col-xs-8">
+                <div class="logo">
+                    <img src="{% static 'img/hj.png' %}" onclick="xxx()" style="height: 60px">
+                </div>
+            </div>
+            <div class="search-form" id="search-form">
+                        <form role="search" method="get" id="searchform" action="#">
+                            <input type="search" placeholder="搜索" name="q" required>
+                            <button type="submit"><span class="ion-ios-search-strong"></span></button>
+                        </form>
+                    </div>
+            <div class="col-md-8 col-sm-7 col-xs-4">
+                <nav class="main-nav" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" id="trigger-overlay" class="navbar-toggle">
+                            <span class="ion-navicon"></span>
+                        </button>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="cl-effect-11"><a href="{%url 'blog:index'%}" data-hover="首页">首页</a></li>
+                            <li class="cl-effect-11"><a href="full-width.html" data-hover="Python">Python</a></li>
+                            <li class="cl-effect-11"><a href="full-width.html" data-hover="爬虫">爬虫</a></li>
+                            <li class="cl-effect-11"><a href="about.html" data-hover="Java">Java</a></li>
+                            <li class="cl-effect-11"><a href="about.html" data-hover="数据库">数据库</a></li>
+                            <li class="cl-effect-11"><a href="contact.html" data-hover="Git">Git</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+</div>
+
+<div class="content-body">
+    <div class="container">
+        <div class="row">
+            <main class="col-md-8">
+                  {% block main %}
+                {% endblock main %}
+            </main>
+            <aside class="col-md-4">
+                 {% block toc %}
+                {% endblock toc %}
+                <div class="widget widget-recent-posts">
+                    <h3 class="widget-title">最新文章</h3>
+                    {%get_recent_posts as recent_post_list %}
+                    <ul>
+                        {% for post in recent_post_list%}
+                        <li>
+                            <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+                        </li>
+                        {%empty%}
+                        <b>暂无文章</b>
+                        {%endfor%}
+                    </ul>
+                </div>
+                <div class="widget widget-archives">
+                    <h3 class="widget-title">归档</h3>
+                    {% archives as date_list %}
+                    <ul>
+                        {%for date in date_list%}
+                        <li>
+                            <a href="{%url 'blog:archives' date.year date.month %}">{{date.year}} 年 {{date.month}} 月</a>
+                        </li>
+                        {%empty%}
+                        <b>暂无归档</b>
+                        {%endfor%}
+                    </ul>
+                </div>
+
+                <div class="widget widget-category">
+                    <h3 class="widget-title">分类</h3>
+                    {%get_categories as category_list%}
+                    <ul>
+                        {% for category in category_list%}
+                        <li>
+                            <a href="{%url 'blog:category' category.pk%}">{{category.name}}
+                                <span class="post-count">({{category.num_posts}})</span></a>
+                        </li>
+                        {%empty%}
+                        <b>暂无分类</b>
+                        {%endfor%}
+
+                    </ul>
+                </div>
+
+                <div class="widget widget-tag-cloud">
+                    <h3 class="widget-title">标签云</h3>
+                    {%get_tags as tags%}
+                    <ul>
+                        {%for tag in tags%}
+                        <li>
+                            <a href="{%url 'blog:tag' tag.pk%}">{{tag.name}}</a>
+                        </li>
+                        {%empty%}
+                        暂无标签
+                        {%endfor%}
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer id="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="copyright">&copy 2017</p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
