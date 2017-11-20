@@ -335,6 +335,21 @@ img {
 /**
  * 5.0 - Widget
  */
+.container1{
+    width:1170px;
+    padding-right:15px;
+    padding-left:15px;
+    margin-right:auto;
+    margin-left:auto;
+}
+.col-md-42{
+    width: 50%;
+    float:left;
+    position:relative;
+    min-height:1px;
+    padding-right:15px;
+    padding-left:15px;
+}
 
 .widget {
     /*background: #fff;*/
@@ -485,7 +500,7 @@ img {
     min-width: 200px;
     margin-right: 800px;
     right: -6px;
-    top: 33px;
+    top: 28px;
 }
 
 #search-menu span {

@@ -6,11 +6,48 @@
         con = document.getElementById('xx').style.display;
         if(con == "none"){
             document.getElementById('xx').style.display="block";
-            document.getElementById('im').src="{% static '/img/gbpl.png'%}";
+            document.getElementById('im').src="{% static '/img/pl.png'%}";
         }else if(con == "block"){
             document.getElementById('xx').style.display="none";
-            document.getElementById('im').src="{% static 'img/pl.png'%}";
+            document.getElementById('im').src="{% static 'img/gbpl.png'%}";
         }
+    }
+    function Move_color() {
+        document.getElementById("but").style.backgroundColor="#FF82AB";
+    }
+    function Out_color() {
+        document.getElementById("but").style.backgroundColor="#FFF5EE";
+    }
+    $(function () {
+        $.ajaxSetup({
+            headers: { "X-CSRFToken": getCookie("csrftoken") }
+        });
+    });
+    function getCookie(name)
+    {
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+        if(arr=document.cookie.match(reg))
+
+            return unescape(arr[2]);
+        else
+            return null;
+    }
+    function tijiao1(){
+        var  user =$('#id_name').val()
+        $.ajax({
+            url:'/ajax/',
+            type:'POST',
+            data:{username:user},
+            success:function(callback){
+                 $('#status').text(callback);
+                if (callback === "该名字存在！"){
+                    document.getElementById("but").disabled="disabled";
+                }else{
+                    document.getElementById("but").disabled=undefined;
+                }
+            }
+        })
     }
 </script>
 <article class="post post-{{post.pk}}" xmlns:display="http://www.w3.org/1999/xhtml"
@@ -24,7 +61,6 @@
                             <span class="post-author"><a href="#">{{post.author}}</a></span>
                             <span class="comments-link"><a href="#">{{post.comment_set.count}} 评论</a></span>
                             <span class="views-count"><a href="#">{{post.views}} 阅读</a></span>
-                            <!--<span class="views-count">标签:</span>-->
                             {%for tag in post.tags.all %}
                             <span class="widget-tag"><a href="#">{{tag.name}}</a></span>
                             {%empty%}
@@ -36,29 +72,32 @@
                         {{post.body|safe}}
                     </div>
                 </article>
-                <section class="comment-area" id="comment-area">
-                    <hr>
-                    <button onclick="comments()"><img src="{% static 'img/pl.png' %}" id="im"></button>
-                    <div style="display: none" id="xx">
-                   <form action="{%url 'comments:post_comment' post.pk%}" method="post" class="comment-form">
+                <section class="comment-area" id="commsent-area">
+                    <hr style="height: 2px;background-color:#FFB6C1">
+                    <img onclick="comments()" src=
+                            "{% static 'img/gbpl.png' %}" id="im">
+{#                <button onclick="comments()" style="width: 200px;height: 80px;background-color:#FFFAF0;font-size:#}
+{#                30px;margin: auto">评论</button>#}
+                    <div style="display: none;margin-top: -30px;margin-left: 20px" id="xx">
+                   <form action="{%url 'comments:post_comment' post.pk%}" method="post" class="comment-form" id="formid">
                    {% csrf_token %}
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-42"  onchange="tijiao1()">
                                 <label for="{{ form.name.id_for_label }}">名字：</label>
                                     {{ form.name }}
                                     {{ form.name.errors }}
                             </div>
-                         <div class="col-md-4">
-                             <label for="{{ form.email.id_for_label }}">邮箱：</label>
-                                {{ form.email }}
-                                {{ form.email.errors }}
-                         </div>
+                            <div style="margin-left: 280px;margin-top: 30px;font-size:30px;color:#8B008B;
+                            width: 300px;
+"><span
+                                    id="status"></span></div>
                             <div class="col-md-12">
                                  <!--for 属性命名一个目标表单 id，这样就是显式形式-->
                                 <label for="{{ form.text.id_for_label }}">评论：</label>
                             {{ form.text }}
                             {{ form.text.errors }}
-                            <button type="submit" class="comment-btn">发表</button>
+                            <input type="submit" id="but" onmousemove="Move_color()" onmouseout="Out_color()"
+                                    class="comment-btn" style="height: 50px;width:150px;font-size: 25px;background-color:#FFF5EE">
                             </div>
                         </div>
                    </form>
@@ -82,24 +121,4 @@
                 </section>
             {% endblock main %}
             {% block toc %}
-           <div class="widget widget-content">
-            <h3 class="widget-title">文章目录</h3>
-             <ul>
-             <li>
-                <a href="#">教程特点</a>
-            </li>
-            <li>
-                <a href="#">谁适合这个教程</a>
-            </li>
-            <li>
-                <a href="#">在线预览</a>
-            </li>
-            <li>
-                <a href="#">资源列表</a>
-            </li>
-            <li>
-                <a href="#">获取帮助</a>
-            </li>
-        </ul>
-    </div>
     {% endblock toc %}

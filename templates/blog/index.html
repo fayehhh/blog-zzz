@@ -1,29 +1,38 @@
 {% extends 'base.html' %}
         {% block main %}
+             {% if error_msg %}
+                 <p xmlns="http://www.w3.org/1999/html">{{ error_msg }}</p>
+                {% endif %}
                 {% for post in post_list%}
                 <article class="post post-{{post.pk}}">
                     <header class="entry-header">
-                        <h1 class="entry-title">
+                        <h1  class="entry-title">
                              <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
                         </h1>
                         <div class="entry-meta">
                             <span class="post-category"><a>{{ post.category.name }}</a></span>
                             <span class="post-date"><a><time class="entry-date"
                                         datetime="{{ post.create_time }}">{{ post.create_time }}</time></a></span>
-                            <!--<span class="post-author"><a>{{post.author}}</a></span>-->
+                            <span class="post-author"><a href="#">{{post.author}}</a></span>
                             <span class="comments-link"><a>{{post.comment_set.count}} 评论</a></span>
                             <span class="views-count"><a>{{post.views}} 阅读</a></span>
+                            {%for tag in post.tags.all %}
+                            <span class="widget-tag"><a href="#">{{tag.name}}</a></span>
+                            {%empty%}
+                            <span class="widget-tag"><a href="#">无标签</a></span>
+                            {%endfor%}
                         </div>
                     </header>
                     <div class="entry-content clearfix">
-                        <p>{{post.excerpt}}</p>
+                        <p style="font-size: 25px;text-indent:65px;letter-spacing:2px;"><i>{{post.excerpt}}</i></p>
                         <div class="read-more cl-effect-14">
                             <a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
                         </div>
                     </div>
                 </article>
                 {%empty%}
-                <div class="no-post">暂时还未发布的文章！</div>
+                    <div class="no-post" style="font-size: 30px;color:#FF6EB4;margin-top:100px;
+">暂时还未发布文章！</div>
                 {%endfor%}
              {% if is_paginated %}
 <div class="pagination" style="font-size: 30px;margin-left: 310px">

@@ -2,7 +2,7 @@
 {% load blog_tags %}
 <!DOCTYPE html>
 <head>
-    <title>Black &amp; White</title>
+    <title>..Blog</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -15,21 +15,32 @@
     <script src="{% static 'js/pace.min.js' %}"></script>
     <script src="{% static 'js/modernizr.custom.js' %}"></script>
     <script src="{% static 'js/script.js' %} "></script>
-
+    <script>
+        function move_inp() {
+            document.getElementById("inp").style.border="2px solid #FF82AB";
+        }
+        function out_inp() {
+            document.getElementById("inp").style.border="1px solid #EEAEEE";
+        }
+    </script>
 </head>
-<body>
+<body style="background-color: #E8E8E8">
 <script src="{% static 'js/canvas-nest.js' %}"></script>
-<div class="container">
+<div class="container1">
     <header id="site-header">
         <div class="row">
             <div class="col-md-4 col-sm-5 col-xs-8">
-                <div class="logo">
-                    <img src="{% static 'img/hj.png' %}" onclick="xxx()" style="height: 60px">
+                <div class="logo" name="top">
+                    <a href="#down"><img src="{% static 'img/hj.png' %}" style="height: 60px"></a>
                 </div>
             </div>
             <div class="search-form" id="search-form">
-                        <form role="search" method="get" id="searchform" action="#">
-                            <input type="search" placeholder="搜索" name="q" required>
+                        <form role="search" method="get" id="searchform" action="{% url 'blog:search' %}">
+                            <input id="inp" onmousemove="move_inp()" onmouseout="out_inp()" style="border: 1px solid
+                            #EEAEEE" type="search"
+                                   placeholder="搜索标题和简介关键字"
+                                   name="q"
+                                   required>
                             <button type="submit"><span class="ion-ios-search-strong"></span></button>
                         </form>
                     </div>
@@ -44,11 +55,13 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
                             <li class="cl-effect-11"><a href="{%url 'blog:index'%}" data-hover="首页">首页</a></li>
-                            <li class="cl-effect-11"><a href="full-width.html" data-hover="Python">Python</a></li>
-                            <li class="cl-effect-11"><a href="full-width.html" data-hover="爬虫">爬虫</a></li>
-                            <li class="cl-effect-11"><a href="about.html" data-hover="Java">Java</a></li>
-                            <li class="cl-effect-11"><a href="about.html" data-hover="数据库">数据库</a></li>
-                            <li class="cl-effect-11"><a href="contact.html" data-hover="Git">Git</a></li>
+                            <li class="cl-effect-11"><a href="{%url 'blog:category' 1%}"
+                                                        data-hover="Python">Python</a></li>
+                            <li class="cl-effect-11"><a href="{%url 'blog:category' 7%}"
+                                                        data-hover="HTML&CSS">HTML&CSS</a></li>
+                            <li class="cl-effect-11"><a href="{%url 'blog:category' 4%}" data-hover="Java">Java</a></li>
+                            <li class="cl-effect-11"><a href="{%url 'blog:category' 5%}" data-hover="数据库">数据库</a></li>
+                            <li class="cl-effect-11"><a href="{%url 'blog:category' 6%}" data-hover="Git">Git</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -127,11 +140,13 @@
         </div>
     </div>
 </div>
+<div id="down"><a href="#top"><img src="{% static 'img/hj.png' %}" style="height: 60px;margin-left: 1210px;margin-top:
+-250px"></a></div>
 <footer id="site-footer">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <p class="copyright">&copy 2017</p>
+                <p class="copyright" style="color: #FFB5C5">๑•ิ.•ั๑-lyd-blog&nbsp;&&nbsp;渝ICP备17014267号</p>
             </div>
         </div>
     </div>

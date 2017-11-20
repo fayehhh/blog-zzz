@@ -4,9 +4,13 @@ from .models import Category, Tag, Post
 
 
 class PostAdmin(admin.ModelAdmin):
-	list_display = ['title', 'create_time', 'modify_time', 'category', 'author']
+	list_display = ['title', 'create_time', 'modify_time', 'category', 'author', 'id']
+
+
+class CategoryAdmin(admin.ModelAdmin):
+	list_display = ['id', 'name']
 
 
 admin.site.register(Post, PostAdmin)
-admin.site.register(Category)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag)
