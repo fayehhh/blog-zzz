@@ -76,8 +76,6 @@
                     <hr style="height: 2px;background-color:#FFB6C1">
                     <img onclick="comments()" src=
                             "{% static 'img/gbpl.png' %}" id="im">
-{#                <button onclick="comments()" style="width: 200px;height: 80px;background-color:#FFFAF0;font-size:#}
-{#                30px;margin: auto">评论</button>#}
                     <div style="display: none;margin-top: -30px;margin-left: 20px" id="xx">
                    <form action="{%url 'comments:post_comment' post.pk%}" method="post" class="comment-form" id="formid">
                    {% csrf_token %}
@@ -88,7 +86,7 @@
                                     {{ form.name.errors }}
                             </div>
                             <div style="margin-left: 280px;margin-top: 30px;font-size:30px;color:#8B008B;
-                            width: 300px;
+                            width: 350px;
 "><span
                                     id="status"></span></div>
                             <div class="col-md-12">
@@ -96,7 +94,7 @@
                                 <label for="{{ form.text.id_for_label }}">评论：</label>
                             {{ form.text }}
                             {{ form.text.errors }}
-                            <input type="submit" id="but" onmousemove="Move_color()" onmouseout="Out_color()"
+                            <input type="submit" id="but" value="提交" onmousemove="Move_color()" onmouseout="Out_color()"
                                     class="comment-btn" style="height: 50px;width:150px;font-size: 25px;background-color:#FFF5EE">
                             </div>
                         </div>

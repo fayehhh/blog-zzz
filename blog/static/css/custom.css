@@ -335,6 +335,12 @@ img {
 /**
  * 5.0 - Widget
  */
+.navbar-right1{
+    float:right!important;margin-right:-80px
+}
+.navbar-right1~.navbar-right1{
+     margin-right:0
+ }
 .container1{
     width:1170px;
     padding-right:15px;
