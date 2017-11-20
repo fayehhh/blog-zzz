@@ -341,6 +341,14 @@ img {
 .navbar-right1~.navbar-right1{
      margin-right:0
  }
+.col-md-4_1{
+    position:relative;
+    min-height:1px;
+    padding-right:15px;
+    padding-left:15px;
+    float:left;
+    width:22%;
+}
 .container1{
     width:1170px;
     padding-right:15px;
